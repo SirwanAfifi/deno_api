@@ -1,18 +1,16 @@
 import { Application } from "https://deno.land/x/oak/mod.ts";
-import { Router } from "https://deno.land/x/oak/mod.ts";
+import { applyGraphQL } from "https://deno.land/x/oak_graphql/mod.ts";
+import { RootTypes } from "./graphql/types/index.ts";
+import { resolvers } from "./graphql/resolvers/index.ts";
 
 const app = new Application();
 
-const router = new Router();
-router.get(
-  "/",
-  async ({ request, response }: { request: any; response: any }) => {
-    response.body = { message: "OK" };
-    response.status = 200;
-  }
-);
-app.use(router.routes());
-app.use(router.allowedMethods());
+const GraphQLService = await applyGraphQL({
+  typeDefs: RootTypes,
+  resolvers,
+});
+
+app.use(GraphQLService.routes(), GraphQLService.allowedMethods());
 
 console.log("Server listening at http://localhost:8080");
 

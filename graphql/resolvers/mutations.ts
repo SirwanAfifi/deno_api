@@ -1,0 +1,3 @@
+const Mutaitons = {};
+
+export { Mutaitons };

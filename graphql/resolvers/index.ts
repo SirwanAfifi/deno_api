@@ -1,9 +1,2 @@
-import { users } from "../../data/index.ts";
-
-export const resolvers = {
-  Query: {
-    getUsers: () => {
-      return users;
-    },
-  },
-};
+export * from "./queries.ts";
+export * from "./mutations.ts";
